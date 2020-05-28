@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 200, 10 )
+
+[node name="Stage" type="Node2D"]
+
+[node name="Platform" type="StaticBody2D" parent="."]
+position = Vector2( 200, 400 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
+shape = SubResource( 1 )
+
+[node name="ColorRect" type="ColorRect" parent="Platform"]
+margin_left = -200.0
+margin_top = -10.0
+margin_right = 200.0
+margin_bottom = 10.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
