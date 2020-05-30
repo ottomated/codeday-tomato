@@ -1,6 +1,8 @@
 extends KinematicBody2D
 
-export (int) var GRAVITY = 1800;
+export (int) var GRAVITY = 1000;
+export (int) var LOW_JUMP_MULT = 2;
+export (int) var FALL_MULT = 2.5;
 export (int) var MAX_SPEED = 200;
 export (int) var JUMP_SPEED = -400;
 export (int) var ACCEL = 100;
@@ -16,7 +18,14 @@ func _physics_process(delta):
 	if is_on_floor() and Input.is_action_pressed("move_jump"):
 		vel.y = JUMP_SPEED;
 	
-	vel.y += delta * GRAVITY;
+	var gravity_mult = 1;
+	if vel.y > 0:
+		gravity_mult = FALL_MULT;
+	elif vel.y < 0 and not Input.is_action_pressed("move_jump"):
+		gravity_mult = LOW_JUMP_MULT;
+		
+	print(gravity_mult);
+	vel.y += delta * GRAVITY * gravity_mult;
 	
 	var target = hvel * MAX_SPEED;
 	
